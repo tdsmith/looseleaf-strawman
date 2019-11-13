@@ -11,6 +11,6 @@
 SELECT
   client_id,
   branch,
-  SUM(payload.processes.parent.scalars.browser_engagement_active_ticks) AS {{name}}
+  COALESCE(SUM(browser_engagement_active_ticks), 0) AS {{name}}
 FROM {{source}}
 GROUP BY branch
