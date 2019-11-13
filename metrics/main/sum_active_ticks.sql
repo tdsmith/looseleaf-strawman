@@ -13,4 +13,6 @@ SELECT
   branch,
   COALESCE(SUM(browser_engagement_active_ticks), 0) AS {{name}}
 FROM {{source}}
-GROUP BY branch
+GROUP BY
+  client_id,
+  branch
