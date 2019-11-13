@@ -1,0 +1,14 @@
+[[experiment]]
+# This ends up in BigQuery table names:
+name = "add-on-blocklisting-using-remote-settings"
+normandy_slug = "pref-add-on-blocklisting-using-remote-settings-beta-71-bug-1580353"
+start = 2019-10-29
+end = 2019-11-12
+enrollment_end = 2019-11-05
+
+[[analysis]]
+window = "week"
+summaries = [
+  # This may be totally the wrong way to specify this:
+  {metric = "main.sum_active_ticks", summary = "median", ci=[0.05, 0.95]},
+]
