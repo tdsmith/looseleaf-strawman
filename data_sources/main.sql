@@ -7,10 +7,11 @@ SELECT
   {{column_list}}
 FROM
   `moz-fx-data-shared-prod.telemetry.main`
-  RIGHT OUTER JOIN {{source.normandy_enrollments}} ON (
+  RIGHT INNER JOIN {{source.normandy_enrollments}} ON (
     {{source.normandy_enrollments}}.client_id = main.client_id
-    AND {{source.normandy_enrollments}}.enrollment_date <= submission_date
+    AND DATE(submission_timestamp) >= DATE_ADD({{source.normandy_enrollments}}.enrollment_date, {{window.start}} DAY)
+    AND DATE(submission_timestamp) <= DATE_ADD({{source.normandy_enrollments}}.enrollment_date, {{window.end}} DAY)
   )
 WHERE
-  DATE(submission_timestamp) >= {{window.start}}
-  AND DATE(submission_timestamp) <= {{window.end}}
+  DATE(submission_timestamp) >= DATE_ADD({{experiment.start}}, {{window.start}} DAY)
+  AND DATE(submission_timestamp) <= DATE_ADD({{experiment.start}}, {{window.end}} DAY)
