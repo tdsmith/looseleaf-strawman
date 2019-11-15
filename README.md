@@ -18,7 +18,7 @@ The driving motivations are:
 
 The inputs are:
 - An experiment configuration file (experiments/)
-- Dataset definitions (data_sources/)
+- Dataset definitions (data\_sources/)
 - Metrics definitions (metrics/)
 
 You run it as e.g. `looseleaf_bind my_experiment.toml`
