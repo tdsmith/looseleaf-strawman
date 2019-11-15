@@ -2,6 +2,8 @@
 
 This is a strawman for a concept I'm calling "looseleaf experiment analysis".
 
+It is 100% vaporware!
+
 It's heavily informed by Felix's design of mozanalysis
 and assumes much of the same conceptual framework.
 
@@ -15,6 +17,16 @@ The driving motivations are:
   using the BigQuery storage connector API.
 - BigQuery is fast and doesn't require managing a compute cluster,
   so it makes sense to push as much work as we can into BigQuery.
+
+Some nice properties of this solution include:
+- Because we're producing SQL expressions to run in BigQuery,
+  data scientists can use the BigQuery dry-run mode locally
+  in order to make sure their queries won't error out for silly reasons
+- We can express the set of queries to run as a graph,
+  which means we can leverage Airflow or Luigi to schedule execution
+- BigQuery is the only execution environment.
+
+# How it works
 
 The inputs are:
 - An experiment configuration file (experiments/)
@@ -51,6 +63,10 @@ Strictly out of scope are:
 
 # Some open questions
 
+- How will humans interact with this if we use it as a dashboard backend?
+  Where does it find configuration, and how much configuration is necessary
+  to run queries for an experiment? If users add metrics, where do they type the SQL?
+  Hot take: "send a pull request" is too hard.
 - What are the right things to include in metric metadata?
   I've sprinkled a bunch of things in, more or less randomly;
   some of them are probably useful and some of them probably aren't.
